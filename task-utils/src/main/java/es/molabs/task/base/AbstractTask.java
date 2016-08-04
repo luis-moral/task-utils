@@ -24,7 +24,7 @@ public abstract class AbstractTask implements Task
 {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	private Throwable error = null;	
+	private Exception error = null;	
 	private Task next = null;
 	
 	protected AbstractTask()
@@ -52,13 +52,13 @@ public abstract class AbstractTask implements Task
 			
 			afterProcess();
 		}
-		catch (Throwable t)
+		catch (Exception e)
 		{
-			error = t;
+			error = e;
 			
-			logger.error(t.getLocalizedMessage(), t);
+			logger.error(e.getLocalizedMessage(), e);
 			
-			onError(t);
+			onError(e);
 		}
 	}
 	
@@ -87,7 +87,7 @@ public abstract class AbstractTask implements Task
 	 * 
 	 * @return The last error thrown after calling process().
 	 */
-	public Throwable getError()
+	public Exception getError()
 	{
 		return error;
 	}
@@ -114,27 +114,27 @@ public abstract class AbstractTask implements Task
 	/**
 	 * Hook that will be called before the process() call is made.
 	 * 
-	 * @throws Throwable if an error occurs.
+	 * @throws Exception if an error occurs.
 	 */
-	protected void beforeProcess() throws Throwable
+	protected void beforeProcess() throws Exception
 	{
 	}
 	
 	/**
 	 * Hook that will be called after the process() call is made.
 	 * 
-	 * @throws Throwable if an error occurs.
+	 * @throws Exception if an error occurs.
 	 */
-	protected void afterProcess() throws Throwable
+	protected void afterProcess() throws Exception
 	{
 	}
 	
 	/**
 	 * Hook that will be called if an error occurs in the loop.
 	 * 
-	 * @param t exception thrown.
+	 * @param e exception thrown.
 	 */
-	protected void onError(Throwable t)
+	protected void onError(Exception e)
 	{		
 	}
 	
@@ -143,7 +143,7 @@ public abstract class AbstractTask implements Task
 	 * 
 	 * @param delta time passed in seconds.
 	 * 
-	 * @throws Throwable if an error occurs.
+	 * @throws Exception if an error occurs.
 	 */
-	protected abstract void doExecute(float delta) throws Throwable;
+	protected abstract void doExecute(float delta) throws Exception;
 }

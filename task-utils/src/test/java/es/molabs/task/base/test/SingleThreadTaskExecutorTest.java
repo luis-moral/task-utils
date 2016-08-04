@@ -96,7 +96,7 @@ public class SingleThreadTaskExecutorTest
 			return true;
 		}
 
-		protected void doExecute(float delta) throws Throwable 
+		protected void doExecute(float delta) throws Exception 
 		{
 		}
 
